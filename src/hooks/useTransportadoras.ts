@@ -1,6 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
-import type { Transportadora, TransportadoraOrigem } from "@/types/frete";
+import type {
+  Transportadora,
+  TransportadoraOrigem,
+  ParametrosCalculo,
+} from "@/types/frete";
 
 export function useTransportadoras() {
   return useQuery<Transportadora[]>({
@@ -17,7 +21,9 @@ export function useTransportadoras() {
   });
 }
 
-export function useTransportadoraOrigens(transportadoraId: string | undefined) {
+export function useTransportadoraOrigens(
+  transportadoraId: string | undefined
+) {
   return useQuery<TransportadoraOrigem[]>({
     queryKey: ["transportadora-origens", transportadoraId],
     enabled: !!transportadoraId,
@@ -32,4 +38,18 @@ export function useTransportadoraOrigens(transportadoraId: string | undefined) {
       return data;
     },
   });
+}
+
+/**
+ * Resolve effective params for an origin:
+ * transportadora.parametros_calculo merged with origem.parametros_override
+ */
+export function resolveOriginParams(
+  transportadora: Transportadora,
+  origem: TransportadoraOrigem
+): ParametrosCalculo | null {
+  const base = transportadora.parametros_calculo;
+  if (!base) return null;
+  if (!origem.parametros_override) return base;
+  return { ...base, ...origem.parametros_override };
 }

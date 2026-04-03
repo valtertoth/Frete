@@ -77,6 +77,7 @@ export interface TransportadoraOrigem {
   nome: string;
   tipo: "exportacao" | "dropshipping";
   ativo: boolean;
+  parametros_override: Partial<ParametrosCalculo> | null;
 }
 
 export interface CidadePraca {

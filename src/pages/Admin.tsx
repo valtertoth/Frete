@@ -2,31 +2,44 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Settings,
   Upload,
   Database,
   CheckCircle2,
   AlertCircle,
+  Loader2,
+  Truck,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import {
-  VIPEX_PARAMS,
-  ORIGIN_LABELS,
-  PARTIAL_ORIGINS,
-  getParamsForOrigin,
-  useVipexData,
-} from "@/hooks/useVipexData";
+  useTransportadoras,
+  useTransportadoraOrigens,
+} from "@/hooks/useTransportadoras";
 import { formatCurrency, formatPercent } from "@/lib/utils";
+import type { ParametrosCalculo } from "@/types/frete";
 
 export function Admin() {
-  const { origins, tabelas } = useVipexData();
+  const { data: transportadoras, isLoading } = useTransportadoras();
+  const [selectedId, setSelectedId] = useState("");
+  const { data: origens } = useTransportadoraOrigens(selectedId || undefined);
+
   const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState<{
     type: "success" | "error";
     message: string;
   } | null>(null);
 
-  const handleUploadVipex = async () => {
+  const selected = transportadoras?.find((t) => t.id === selectedId);
+  const params = selected?.parametros_calculo as ParametrosCalculo | null;
+
+  const handleSyncVipex = async () => {
     setUploading(true);
     setUploadResult(null);
 
@@ -57,14 +70,7 @@ export function Admin() {
 
       const transportadoraId = vipex!.id;
 
-      await supabase
-        .from("transportadoras")
-        .update({
-          parametros_calculo: VIPEX_PARAMS,
-          margem_seguranca: 0,
-        })
-        .eq("id", transportadoraId);
-
+      // Sync cidades
       await supabase
         .from("transportadora_cidade_praca")
         .delete()
@@ -87,6 +93,7 @@ export function Admin() {
         if (error) throw error;
       }
 
+      // Sync tabela frete
       await supabase
         .from("transportadora_tabela_frete")
         .delete()
@@ -120,7 +127,7 @@ export function Admin() {
 
       setUploadResult({
         type: "success",
-        message: `Carregados: ${cidadeRows.length} cidades, ${freteRows.length} valores de frete.`,
+        message: `Vipex sincronizada: ${cidadeRows.length} cidades, ${freteRows.length} valores.`,
       });
     } catch (err: any) {
       setUploadResult({
@@ -132,6 +139,17 @@ export function Admin() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="flex items-center gap-2 text-zinc-400">
+          <Loader2 className="size-4 animate-spin" strokeWidth={1.5} />
+          <span className="text-sm">Carregando...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Page header */}
@@ -142,120 +160,213 @@ export function Admin() {
         </h1>
       </div>
 
-      {/* Parameters overview */}
+      {/* Transportadora selector */}
       <div className="rounded-lg border border-zinc-200 bg-white">
         <div className="flex items-center gap-2 border-b border-zinc-100 px-6 py-4">
-          <Database className="size-4 text-zinc-400" strokeWidth={1.5} />
+          <Truck className="size-4 text-zinc-400" strokeWidth={1.5} />
           <h2 className="text-sm font-medium text-zinc-900">
-            Parametros Vipex
+            Transportadoras ({transportadoras?.length ?? 0})
           </h2>
         </div>
 
         <div className="px-6 py-4">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div>
-              <span className="text-xs text-zinc-400">Despacho</span>
-              <p className="text-sm text-zinc-700">
-                {formatCurrency(VIPEX_PARAMS.despacho)}
-              </p>
-            </div>
-            <div>
-              <span className="text-xs text-zinc-400">GRIS</span>
-              <p className="text-sm text-zinc-700">
-                {formatPercent(VIPEX_PARAMS.gris)}
-              </p>
-            </div>
-            <div>
-              <span className="text-xs text-zinc-400">Pedagio</span>
-              <p className="text-sm text-zinc-700">
-                {formatCurrency(VIPEX_PARAMS.pedagioValor)} / fracao M3
-              </p>
-            </div>
-            <div>
-              <span className="text-xs text-zinc-400">ICMS</span>
-              <p className="text-sm text-zinc-700">
-                {formatPercent(VIPEX_PARAMS.icms)} (por dentro)
-              </p>
-            </div>
-            <div>
-              <span className="text-xs text-zinc-400">Entrega</span>
-              <p className="text-sm text-zinc-700">
-                {formatCurrency(VIPEX_PARAMS.entregaFixa)}
-              </p>
-            </div>
-            <div>
-              <span className="text-xs text-zinc-400">Faixas M3</span>
-              <p className="text-sm text-zinc-700">
-                {VIPEX_PARAMS.faixasM3.length} faixas
-              </p>
-            </div>
-          </div>
-
-          <Separator className="my-4 bg-zinc-100" />
-
-          <div>
-            <span className="text-xs text-zinc-400">Origens configuradas ({origins.length})</span>
-            <div className="mt-2 space-y-1.5">
-              {origins.map((code) => {
-                const isPartial = PARTIAL_ORIGINS.has(code);
-                const originParams = getParamsForOrigin(code);
-                const pracaCount = tabelas
-                  ? Object.keys(tabelas[code] ?? {}).length
-                  : 0;
-                return (
-                  <div key={code} className="flex items-center gap-2">
-                    <span className="rounded border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 font-mono text-xs text-zinc-600">
-                      {code}
-                    </span>
-                    <span className="text-xs text-zinc-500">
-                      {ORIGIN_LABELS[code] ?? code}
-                    </span>
-                    <span className="text-[10px] text-zinc-400">
-                      {pracaCount} pracas
-                    </span>
-                    {isPartial && (
-                      <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
-                        ESTIMADO
-                      </span>
-                    )}
-                    {originParams !== VIPEX_PARAMS && (
-                      <span className="text-[10px] text-zinc-400">
-                        Desp={formatCurrency(originParams.despacho)} Ped={formatCurrency(originParams.pedagioValor)}
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+          <div className="flex items-center gap-3">
+            <Select value={selectedId} onValueChange={setSelectedId}>
+              <SelectTrigger className="h-9 w-64 text-sm">
+                <SelectValue placeholder="Selecione uma transportadora..." />
+              </SelectTrigger>
+              <SelectContent>
+                {transportadoras?.map((t) => (
+                  <SelectItem key={t.id} value={t.id}>
+                    {t.nome}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {selected && (
+              <span className="text-xs text-zinc-400">
+                ID: {selected.id.slice(0, 8)}...
+              </span>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Upload to Supabase */}
+      {/* Parameters for selected transportadora */}
+      {selected && params && (
+        <div className="rounded-lg border border-zinc-200 bg-white">
+          <div className="flex items-center gap-2 border-b border-zinc-100 px-6 py-4">
+            <Database className="size-4 text-zinc-400" strokeWidth={1.5} />
+            <h2 className="text-sm font-medium text-zinc-900">
+              Parametros — {selected.nome}
+            </h2>
+          </div>
+
+          <div className="px-6 py-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div>
+                <span className="text-xs text-zinc-400">Despacho</span>
+                <p className="text-sm text-zinc-700">
+                  {formatCurrency(params.despacho)}
+                </p>
+              </div>
+              <div>
+                <span className="text-xs text-zinc-400">GRIS</span>
+                <p className="text-sm text-zinc-700">
+                  {formatPercent(params.gris)}
+                </p>
+              </div>
+              <div>
+                <span className="text-xs text-zinc-400">Pedagio</span>
+                <p className="text-sm text-zinc-700">
+                  {formatCurrency(params.pedagioValor)} /{" "}
+                  {params.pedagioTipo === "por_fracao_m3"
+                    ? "fracao M3"
+                    : "fixo"}
+                </p>
+              </div>
+              <div>
+                <span className="text-xs text-zinc-400">ICMS</span>
+                <p className="text-sm text-zinc-700">
+                  {formatPercent(params.icms)} ({params.icmsTipo})
+                </p>
+              </div>
+              <div>
+                <span className="text-xs text-zinc-400">Entrega</span>
+                <p className="text-sm text-zinc-700">
+                  {formatCurrency(params.entregaFixa)}
+                </p>
+              </div>
+              <div>
+                <span className="text-xs text-zinc-400">Faixas M3</span>
+                <p className="text-sm text-zinc-700">
+                  {params.faixasM3.length} faixas
+                </p>
+              </div>
+              <div>
+                <span className="text-xs text-zinc-400">Margem Seguranca</span>
+                <p className="text-sm text-zinc-700">
+                  {formatPercent(selected.margem_seguranca)}
+                </p>
+              </div>
+              <div>
+                <span className="text-xs text-zinc-400">Fator Cubagem</span>
+                <p className="text-sm text-zinc-700">
+                  {selected.fator_cubagem}
+                </p>
+              </div>
+            </div>
+
+            <Separator className="my-4 bg-zinc-100" />
+
+            {/* Origens */}
+            <div>
+              <span className="text-xs text-zinc-400">
+                Origens ({origens?.length ?? 0})
+              </span>
+              <div className="mt-2 space-y-1.5">
+                {origens?.map((o) => (
+                  <div key={o.id} className="flex items-center gap-2">
+                    <span className="rounded border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 font-mono text-xs text-zinc-600">
+                      {o.codigo}
+                    </span>
+                    <span className="text-xs text-zinc-500">
+                      {o.nome || o.codigo}
+                    </span>
+                    <span className="text-[10px] text-zinc-400">{o.tipo}</span>
+                    {o.parametros_override && (
+                      <span className="rounded bg-blue-50 px-1.5 py-0.5 text-[10px] font-medium text-blue-600">
+                        OVERRIDE
+                      </span>
+                    )}
+                  </div>
+                ))}
+                {(!origens || origens.length === 0) && (
+                  <p className="text-xs text-zinc-400">
+                    Nenhuma origem cadastrada
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* GRIS por estado */}
+            {params.grisPorEstado &&
+              Object.keys(params.grisPorEstado).length > 0 && (
+                <>
+                  <Separator className="my-4 bg-zinc-100" />
+                  <div>
+                    <span className="text-xs text-zinc-400">
+                      GRIS diferenciado por estado
+                    </span>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {Object.entries(params.grisPorEstado).map(
+                        ([estado, valor]) => (
+                          <span
+                            key={estado}
+                            className="rounded border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600"
+                          >
+                            {estado}: {formatPercent(valor)}
+                          </span>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
+
+            {/* TxDifAcesso */}
+            {params.txDifAcessoPorPraca &&
+              Object.keys(params.txDifAcessoPorPraca).length > 0 && (
+                <>
+                  <Separator className="my-4 bg-zinc-100" />
+                  <div>
+                    <span className="text-xs text-zinc-400">
+                      TxDifAcesso por praca
+                    </span>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {Object.entries(params.txDifAcessoPorPraca).map(
+                        ([praca, valor]) => (
+                          <span
+                            key={praca}
+                            className="rounded border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-600"
+                          >
+                            {praca}: {formatPercent(valor)}
+                          </span>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
+          </div>
+        </div>
+      )}
+
+      {/* Vipex sync (seed data) */}
       <div className="rounded-lg border border-zinc-200 bg-white">
         <div className="flex items-center gap-2 border-b border-zinc-100 px-6 py-4">
           <Upload className="size-4 text-zinc-400" strokeWidth={1.5} />
           <h2 className="text-sm font-medium text-zinc-900">
-            Sincronizar com Supabase
+            Importar dados Vipex (seed)
           </h2>
         </div>
 
         <div className="px-6 py-4">
           <p className="text-xs text-zinc-500">
-            Envia os dados locais (656 cidades, {origins.length} origens, parametros)
-            para o Supabase. Substitui dados anteriores da Vipex.
+            Importa cidades e tabela de frete da Vipex a partir dos arquivos
+            JSON locais. Util para primeira carga ou resetar dados.
           </p>
 
           <div className="mt-4 flex items-center gap-3">
             <Button
-              onClick={handleUploadVipex}
+              onClick={handleSyncVipex}
               disabled={uploading}
               size="sm"
               variant="outline"
               className="gap-2 transition-colors duration-150"
             >
               <Upload className="size-4" strokeWidth={1.5} />
-              {uploading ? "Enviando..." : "Enviar para Supabase"}
+              {uploading ? "Enviando..." : "Sincronizar Vipex"}
             </Button>
 
             {uploadResult && (

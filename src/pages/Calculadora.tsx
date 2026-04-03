@@ -10,21 +10,23 @@ import {
 } from "@/components/ui/select";
 import { Calculator, Loader2, PackageOpen, AlertTriangle } from "lucide-react";
 import {
-  useVipexData,
-  ORIGIN_LABELS,
-  PARTIAL_ORIGINS,
-  getParamsForOrigin,
-} from "@/hooks/useVipexData";
+  useTransportadoras,
+  useTransportadoraOrigens,
+  resolveOriginParams,
+} from "@/hooks/useTransportadoras";
+import { usePracaValores } from "@/hooks/useCidadeSearch";
 import { useCalcularFrete } from "@/hooks/useCalcularFrete";
 import { CidadeAutocomplete } from "@/components/calculadora/CidadeAutocomplete";
 import { DimensoesCalculator } from "@/components/calculadora/DimensoesCalculator";
 import { FreteResultCard } from "@/components/calculadora/FreteResultCard";
-import type { CidadeInfo } from "@/hooks/useVipexData";
+import type { CidadePraca } from "@/types/frete";
 
 export function Calculadora() {
-  const { loading, error, origins, searchCidades, getFretePesoValores } =
-    useVipexData();
+  // Data from Supabase
+  const { data: transportadoras, isLoading: loadingTransp } =
+    useTransportadoras();
 
+  const [transportadoraId, setTransportadoraId] = useState("");
   const [origemCodigo, setOrigemCodigo] = useState("");
   const [pracaDestino, setPracaDestino] = useState("");
   const [cidadeNome, setCidadeNome] = useState("");
@@ -32,17 +34,30 @@ export function Calculadora() {
   const [valorMercadoria, setValorMercadoria] = useState(0);
   const [incluirEntrega, setIncluirEntrega] = useState(true);
 
-  const fretePesoValores = useMemo(
-    () => getFretePesoValores(origemCodigo, pracaDestino),
-    [getFretePesoValores, origemCodigo, pracaDestino]
+  const { data: origens, isLoading: loadingOrigens } =
+    useTransportadoraOrigens(transportadoraId || undefined);
+
+  const { data: fretePesoValores, isLoading: loadingValores } = usePracaValores(
+    transportadoraId || undefined,
+    origemCodigo || undefined,
+    pracaDestino || undefined
   );
 
-  const params = useMemo(
-    () => getParamsForOrigin(origemCodigo),
-    [origemCodigo]
+  // Resolve params: transportadora base + origin overrides
+  const transportadora = useMemo(
+    () => transportadoras?.find((t) => t.id === transportadoraId) ?? null,
+    [transportadoras, transportadoraId]
   );
 
-  const isPartialOrigin = PARTIAL_ORIGINS.has(origemCodigo);
+  const origemSelecionada = useMemo(
+    () => origens?.find((o) => o.codigo === origemCodigo) ?? null,
+    [origens, origemCodigo]
+  );
+
+  const params = useMemo(() => {
+    if (!transportadora || !origemSelecionada) return null;
+    return resolveOriginParams(transportadora, origemSelecionada);
+  }, [transportadora, origemSelecionada]);
 
   const result = useCalcularFrete({
     params,
@@ -51,35 +66,34 @@ export function Calculadora() {
     valorMercadoria,
     praca: pracaDestino,
     incluirEntrega,
-    margemSeguranca: 0,
+    margemSeguranca: transportadora?.margem_seguranca ?? 0,
   });
 
-  const handleCidadeSelect = (cidade: CidadeInfo) => {
+  const handleTransportadoraChange = (id: string) => {
+    setTransportadoraId(id);
+    setOrigemCodigo("");
+    setPracaDestino("");
+    setCidadeNome("");
+  };
+
+  const handleOrigemChange = (codigo: string) => {
+    setOrigemCodigo(codigo);
+    setPracaDestino("");
+    setCidadeNome("");
+  };
+
+  const handleCidadeSelect = (cidade: CidadePraca) => {
     setPracaDestino(cidade.praca);
-    setCidadeNome(cidade.nome);
+    setCidadeNome(cidade.cidade);
   };
 
   // Loading state
-  if (loading) {
+  if (loadingTransp) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="flex items-center gap-2 text-zinc-400">
           <Loader2 className="size-4 animate-spin" strokeWidth={1.5} />
-          <span className="text-sm">Carregando dados...</span>
-        </div>
-      </div>
-    );
-  }
-
-  // Error state
-  if (error) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <div className="text-center">
-          <p className="text-sm text-red-600">{error}</p>
-          <p className="mt-1 text-xs text-zinc-400">
-            Verifique se os arquivos JSON estao na pasta /public/data/
-          </p>
+          <span className="text-sm">Carregando transportadoras...</span>
         </div>
       </div>
     );
@@ -106,24 +120,47 @@ export function Calculadora() {
             </h2>
 
             <div className="space-y-4">
+              {/* Transportadora */}
+              <div className="space-y-1.5">
+                <Label className="text-xs text-zinc-600">Transportadora</Label>
+                <Select
+                  value={transportadoraId}
+                  onValueChange={handleTransportadoraChange}
+                >
+                  <SelectTrigger className="h-9 text-sm transition-colors duration-150">
+                    <SelectValue placeholder="Selecione a transportadora..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {transportadoras?.map((t) => (
+                      <SelectItem key={t.id} value={t.id}>
+                        {t.nome}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
               {/* Origem */}
               <div className="space-y-1.5">
                 <Label className="text-xs text-zinc-600">Origem</Label>
                 <Select
                   value={origemCodigo}
-                  onValueChange={(val) => {
-                    setOrigemCodigo(val);
-                    setPracaDestino("");
-                    setCidadeNome("");
-                  }}
+                  onValueChange={handleOrigemChange}
+                  disabled={!transportadoraId || loadingOrigens}
                 >
                   <SelectTrigger className="h-9 text-sm transition-colors duration-150">
-                    <SelectValue placeholder="Selecione a origem..." />
+                    <SelectValue
+                      placeholder={
+                        loadingOrigens
+                          ? "Carregando origens..."
+                          : "Selecione a origem..."
+                      }
+                    />
                   </SelectTrigger>
                   <SelectContent>
-                    {origins.map((code) => (
-                      <SelectItem key={code} value={code}>
-                        {ORIGIN_LABELS[code] ?? code}
+                    {origens?.map((o) => (
+                      <SelectItem key={o.codigo} value={o.codigo}>
+                        {o.nome || o.codigo}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -134,9 +171,9 @@ export function Calculadora() {
               <div className="space-y-1.5">
                 <Label className="text-xs text-zinc-600">Cidade Destino</Label>
                 <CidadeAutocomplete
-                  searchCidades={searchCidades}
+                  transportadoraId={transportadoraId || undefined}
                   onSelect={handleCidadeSelect}
-                  disabled={!origemCodigo}
+                  disabled={!transportadoraId}
                 />
               </div>
 
@@ -185,39 +222,37 @@ export function Calculadora() {
                   htmlFor="entrega"
                   className="text-xs font-normal text-zinc-600"
                 >
-                  Incluir entrega (R$ {params.entregaFixa.toFixed(2)})
+                  Incluir entrega
+                  {params
+                    ? ` (R$ ${params.entregaFixa.toFixed(2)})`
+                    : ""}
                 </Label>
               </div>
             </div>
           </div>
 
-          {/* Warning for partial origins */}
-          {isPartialOrigin && (
-            <div className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 p-3">
-              <AlertTriangle className="mt-0.5 size-3.5 shrink-0 text-amber-500" strokeWidth={1.5} />
-              <div className="text-xs text-amber-700">
-                <p className="font-medium">Tabela parcial (estimada)</p>
-                <p className="mt-0.5 text-amber-600">
-                  Origem decifrada via auditoria de CTEs. Apenas algumas
-                  praças estão disponíveis. Solicite a tabela completa à Vipex.
-                </p>
+          {/* Warning when praça not found */}
+          {origemCodigo &&
+            pracaDestino &&
+            !loadingValores &&
+            fretePesoValores &&
+            fretePesoValores.every((v) => v === 0) && (
+              <div className="flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 p-3">
+                <AlertTriangle
+                  className="mt-0.5 size-3.5 shrink-0 text-red-500"
+                  strokeWidth={1.5}
+                />
+                <div className="text-xs text-red-700">
+                  <p className="font-medium">
+                    Praça sem dados para esta origem
+                  </p>
+                  <p className="mt-0.5 text-red-600">
+                    A praça {pracaDestino} ({cidadeNome}) não possui tabela de
+                    frete para a origem selecionada.
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
-
-          {/* Warning when praça not found in origin table */}
-          {origemCodigo && pracaDestino && !fretePesoValores && (
-            <div className="flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 p-3">
-              <AlertTriangle className="mt-0.5 size-3.5 shrink-0 text-red-500" strokeWidth={1.5} />
-              <div className="text-xs text-red-700">
-                <p className="font-medium">Praça sem dados para esta origem</p>
-                <p className="mt-0.5 text-red-600">
-                  A praça {pracaDestino} ({cidadeNome}) não possui tabela de frete
-                  para a origem {ORIGIN_LABELS[origemCodigo] ?? origemCodigo}.
-                </p>
-              </div>
-            </div>
-          )}
+            )}
 
           {/* Dimensions calculator */}
           <DimensoesCalculator onCalculate={setM3} />
@@ -238,7 +273,7 @@ export function Calculadora() {
                   Preencha os campos para calcular
                 </p>
                 <p className="mt-1 text-xs text-zinc-300">
-                  Origem + Cidade + M3 + Valor
+                  Transportadora + Origem + Cidade + M3 + Valor
                 </p>
               </div>
             </div>

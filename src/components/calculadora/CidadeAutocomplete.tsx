@@ -1,16 +1,17 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Input } from "@/components/ui/input";
-import { MapPin } from "lucide-react";
-import type { CidadeInfo } from "@/hooks/useVipexData";
+import { MapPin, Loader2 } from "lucide-react";
+import type { CidadePraca } from "@/types/frete";
+import { useCidadeSearch } from "@/hooks/useCidadeSearch";
 
 interface CidadeAutocompleteProps {
-  searchCidades: (query: string) => CidadeInfo[];
-  onSelect: (cidade: CidadeInfo) => void;
+  transportadoraId: string | undefined;
+  onSelect: (cidade: CidadePraca) => void;
   disabled?: boolean;
 }
 
 export function CidadeAutocomplete({
-  searchCidades,
+  transportadoraId,
   onSelect,
   disabled,
 }: CidadeAutocompleteProps) {
@@ -24,9 +25,16 @@ export function CidadeAutocomplete({
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
-    }, 200);
+    }, 250);
     return () => clearTimeout(timer);
   }, [search]);
+
+  // Reset when transportadora changes
+  useEffect(() => {
+    setSelected("");
+    setSearch("");
+    setDebouncedSearch("");
+  }, [transportadoraId]);
 
   // Close on click outside
   useEffect(() => {
@@ -42,11 +50,14 @@ export function CidadeAutocomplete({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const results = debouncedSearch.length >= 2 ? searchCidades(debouncedSearch) : [];
+  const { data: results = [], isLoading } = useCidadeSearch(
+    transportadoraId,
+    debouncedSearch
+  );
 
   const handleSelect = useCallback(
-    (cidade: CidadeInfo) => {
-      setSelected(`${cidade.nome} (${cidade.praca})`);
+    (cidade: CidadePraca) => {
+      setSelected(`${cidade.cidade} (${cidade.praca})`);
       setSearch("");
       setDebouncedSearch("");
       setIsOpen(false);
@@ -90,30 +101,48 @@ export function CidadeAutocomplete({
         )}
       </div>
 
-      {isOpen && results.length > 0 && (
+      {isOpen && isLoading && debouncedSearch.length >= 2 && (
+        <div className="absolute z-50 mt-1 w-full rounded-md border border-zinc-200 bg-white px-3 py-2">
+          <div className="flex items-center gap-2 text-xs text-zinc-400">
+            <Loader2 className="size-3 animate-spin" strokeWidth={1.5} />
+            Buscando...
+          </div>
+        </div>
+      )}
+
+      {isOpen && !isLoading && results.length > 0 && (
         <div className="absolute z-50 mt-1 max-h-56 w-full overflow-auto rounded-md border border-zinc-200 bg-white py-1">
           {results.map((c) => (
             <button
-              key={c.nome}
+              key={c.id}
               type="button"
               className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm transition-colors duration-150 hover:bg-zinc-50"
               onClick={() => handleSelect(c)}
             >
-              <MapPin className="size-3 shrink-0 text-zinc-400" strokeWidth={1.5} />
-              <span className="font-medium text-zinc-800">{c.nome}</span>
+              <MapPin
+                className="size-3 shrink-0 text-zinc-400"
+                strokeWidth={1.5}
+              />
+              <span className="font-medium text-zinc-800">{c.cidade}</span>
+              {c.estado && (
+                <span className="text-xs text-zinc-400">{c.estado}</span>
+              )}
               <span className="ml-auto text-xs text-zinc-400">{c.praca}</span>
             </button>
           ))}
         </div>
       )}
 
-      {isOpen && debouncedSearch.length >= 2 && results.length === 0 && (
-        <div className="absolute z-50 mt-1 w-full rounded-md border border-zinc-200 bg-white px-3 py-2">
-          <p className="text-xs text-zinc-400">
-            Nenhuma cidade encontrada para "{debouncedSearch}"
-          </p>
-        </div>
-      )}
+      {isOpen &&
+        !isLoading &&
+        debouncedSearch.length >= 2 &&
+        results.length === 0 && (
+          <div className="absolute z-50 mt-1 w-full rounded-md border border-zinc-200 bg-white px-3 py-2">
+            <p className="text-xs text-zinc-400">
+              Nenhuma cidade encontrada para "{debouncedSearch}"
+            </p>
+          </div>
+        )}
     </div>
   );
 }
