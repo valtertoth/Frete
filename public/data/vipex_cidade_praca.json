@@ -1,0 +1,2626 @@
+{
+  "Agudo": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Alegrete": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Alvorada": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Antônio Prado": {
+    "praca": "RS-SERRA2",
+    "unidade": "BGV"
+  },
+  "Arroio do Meio": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Arroio do Sal": {
+    "praca": "RS-LIT",
+    "unidade": "BGV"
+  },
+  "Arroio dos Ratos": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Bagé": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Barão": {
+    "praca": "RS-SERRA",
+    "unidade": "BGV"
+  },
+  "Barra Funda": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Bento Gonçalves (Filial)": {
+    "praca": "RS-SERRA",
+    "unidade": "BGV"
+  },
+  "Boa Vista das Missões": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Bom Princípio": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Bom Retiro do Sul": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Bozano": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Caçapava do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Cachoeira do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Cachoeirinha": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Camaquã": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Campinas do Sul": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Campo Bom": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Campo Novo": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Candelária": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Cândido Godói": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Canela": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Canguçu": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Canoas": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Capão da Canoa": {
+    "praca": "RS-LIT",
+    "unidade": "BGV"
+  },
+  "Capela de Santana": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Carazinho": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Carlos Barbosa": {
+    "praca": "RS-SERRA",
+    "unidade": "BGV"
+  },
+  "Casca": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Caxias do Sul": {
+    "praca": "RS-SERRA2",
+    "unidade": "BGV"
+  },
+  "Cerro Branco": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Colinas": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Condor": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Constantina": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Coronel Barros": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Crissiumal": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Cruz Alta": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Cruzeiro do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Dois Irmãos": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Dois Lajeados": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Dom Pedrito": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Eldorado do Sul": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Encantado": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Entre Ijuís": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Erechim": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Ernestina": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Espumoso": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Estância Velha": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Esteio": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Estrela": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Farroupilha": {
+    "praca": "RS-SERRA",
+    "unidade": "BGV"
+  },
+  "Feliz": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Flores da Cunha": {
+    "praca": "RS-SERRA2",
+    "unidade": "BGV"
+  },
+  "Frederico Westphalen": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Garibaldi": {
+    "praca": "RS-SERRA",
+    "unidade": "BGV"
+  },
+  "Getúlio Vargas": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Giruá": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Glorinha": {
+    "praca": "RS-LIT",
+    "unidade": "BGV"
+  },
+  "Gramado": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Gravataí": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Guaíba": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Guaporé": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Horizontina": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Humaitá": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Ibiaçá": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Ibirubá": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Igrejinha": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Ijuí": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Imbé": {
+    "praca": "RS-LIT",
+    "unidade": "BGV"
+  },
+  "Ipê": {
+    "praca": "RS-SERRA2",
+    "unidade": "BGV"
+  },
+  "Itaara": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Itaqui": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Ivoti": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Júlio de Castilhos": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Lajeado": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Lindolfo Collor": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Manoel Viana": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Marau": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Montenegro": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Morro Reuter": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Não-me-toque": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Nova Araçá": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Nova Bassano": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Nova Petrópolis": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Nova Prata": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Nova Santa Rita": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Novo Cabrais": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Novo Hamburgo": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Osório": {
+    "praca": "RS-LIT",
+    "unidade": "BGV"
+  },
+  "Palmeira das Missões": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Palmitinho": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Panambi": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Pântano Grande": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Paraí": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Paraíso do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Passo Fundo": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Pelotas": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Picada Café": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Pinto Bandeira": {
+    "praca": "RS-SERRA",
+    "unidade": "BGV"
+  },
+  "Pontão": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Portão": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Porto Alegre": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Quaraí": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Restinga Seca": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Rio Grande": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Rio Pardo": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Roca Sales": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Ronda Alta": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Rondinha": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Roque Gonzales": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Rosário do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Salvador do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Sananduva": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Santa Bárbara do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Santa Cruz do Sul": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Santa Margarida do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Santa Maria": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Santa Rosa": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Santa Tereza": {
+    "praca": "RS-SERRA",
+    "unidade": "BGV"
+  },
+  "Santana do Livramento": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Santiago": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Santo Ângelo": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Santo Antônio da Patrulha": {
+    "praca": "RS-LIT",
+    "unidade": "BGV"
+  },
+  "Santo Antônio das Missões": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Santo Augusto": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Santo Cristo": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "São Borja": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "São Gabriel": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "São Jerônimo": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "São Leopoldo": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "São Lourenço do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "São Luiz Gonzaga": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "São Marcos": {
+    "praca": "RS-SERRA2",
+    "unidade": "BGV"
+  },
+  "São Miguel das Missões": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "São Pedro do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "São Sebastião do Caí": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "São Valentim do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "São Vendelino": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "São Vicente do Sul": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Sapiranga": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Sapucaia do Sul": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Sarandi": {
+    "praca": "PR-NOR2",
+    "unidade": "MRG"
+  },
+  "Seberi": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Sede Nova": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Serafina Corrêa": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Soledade": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Tapejara": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Tapera": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Tenente Portela": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Teutônia": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Tio Hugo": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Torres": {
+    "praca": "RS-LIT",
+    "unidade": "BGV"
+  },
+  "Tramandaí": {
+    "praca": "RS-LIT",
+    "unidade": "BGV"
+  },
+  "Três de Maio": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Três Palmeiras": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Três Passos": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Triunfo": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Tuiutí": {
+    "praca": "RS-SERRA",
+    "unidade": "BGV"
+  },
+  "Tupanciretã": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Tupandi": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Tuparendi": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Unistalda": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Uruguaiana": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Vacaria": {
+    "praca": "RS-SERRA2",
+    "unidade": "BGV"
+  },
+  "Vale Real": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Venâncio Aires": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Vera Cruz": {
+    "praca": "BA-CAP",
+    "unidade": "SSA"
+  },
+  "Veranópolis": {
+    "praca": "RS-INT1",
+    "unidade": "BGV"
+  },
+  "Viamão": {
+    "praca": "RS-CAP",
+    "unidade": "BGV"
+  },
+  "Vitória das Missões": {
+    "praca": "RS-INT2",
+    "unidade": "BGV"
+  },
+  "Xangri-lá": {
+    "praca": "RS-LIT",
+    "unidade": "BGV"
+  },
+  "Antônio Carlos": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Araquari": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Araranguá": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Armazém": {
+    "praca": "SC-INT",
+    "unidade": "FLN"
+  },
+  "Balneário Camboriú": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Barra Velha": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Biguaçu (Filial)": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Blumenau": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Bombinhas": {
+    "praca": "SC-INT",
+    "unidade": "FLN"
+  },
+  "Braço do Norte": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Brusque": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Caçador": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Camboriú": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Campo Alegre": {
+    "praca": "SC-NOR",
+    "unidade": "CTB"
+  },
+  "Campos Novos": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Canelinha": {
+    "praca": "SC-INT",
+    "unidade": "FLN"
+  },
+  "Capivari de Baixo": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Chapecó": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Cocal do Sul": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Concórdia": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Coronel Freitas": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Corupá": {
+    "praca": "SC-INT",
+    "unidade": "CTB"
+  },
+  "Criciúma": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Cunha Pora": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Curitibanos": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Doutor Pedrinho": {
+    "praca": "SC-INT",
+    "unidade": "FLN"
+  },
+  "Figueira": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Florianópolis": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Fraiburgo": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Garopaba": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Gaspar": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Governador Celso Ramos": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Gravatal": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Guaramirim": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Içara": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Ilhota": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Imbituba": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Indaial": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Irati": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Itá": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Itajaí": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Itapema": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Jaraguá do Sul": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Joaçaba": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Joinville": {
+    "praca": "SC-NOR",
+    "unidade": "CTB"
+  },
+  "Lages": {
+    "praca": "SC-OESTE",
+    "unidade": "FLN"
+  },
+  "Laguna": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Mafra": {
+    "praca": "SC-INT",
+    "unidade": "CTB"
+  },
+  "Maravilha": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Navegantes": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Nova Erechim": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Nova Trento": {
+    "praca": "SC-INT",
+    "unidade": "FLN"
+  },
+  "Orleans": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Palhoça": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Palmitos": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Paulo Lopes": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Penha": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Piçarras": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Pinhalzinho": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Planalto Alegre": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Porto Belo": {
+    "praca": "SC-INT",
+    "unidade": "FLN"
+  },
+  "Rio do Sul": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Rio Negrinho": {
+    "praca": "SC-INT",
+    "unidade": "CTB"
+  },
+  "Santa Helena": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Santo Amaro da Imperatriz": {
+    "praca": "SC-INT",
+    "unidade": "FLN"
+  },
+  "São Bento do Sul": {
+    "praca": "SC-INT",
+    "unidade": "CTB"
+  },
+  "São Carlos": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "São Francisco do Sul": {
+    "praca": "SC-NOR",
+    "unidade": "CTB"
+  },
+  "São João Batista": {
+    "praca": "SC-INT",
+    "unidade": "FLN"
+  },
+  "São José": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "São José do Cedro": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "São Lourenço do Oeste": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "São Martinho": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "São Miguel do Oeste": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Saudades": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Schroeder": {
+    "praca": "SC-NOR",
+    "unidade": "FLN"
+  },
+  "Siderópolis": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Tijucas": {
+    "praca": "SC-LIT",
+    "unidade": "FLN"
+  },
+  "Timbó": {
+    "praca": "SC-INT",
+    "unidade": "FLN"
+  },
+  "Tubarão": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Turvo": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Urussanga": {
+    "praca": "SC-SUL",
+    "unidade": "FLN"
+  },
+  "Videira": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Xanxerê": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Xaxim": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Almirante Tamandaré": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Apucarana": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Arapongas": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Araucária": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Assis Chateaubriand": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Astorga": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Cambé": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Campo Largo": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Campo Magro": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Campo Mourão": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Cascavel": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Cianorte": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Colombo": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Cornélio Procópio": {
+    "praca": "PR-NOR2",
+    "unidade": "LDA"
+  },
+  "Coronel Vivida": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Curitiba (Filial)": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Fazenda Rio Grande": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Foz do Iguaçu": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Guarapuava": {
+    "praca": "PR-INT",
+    "unidade": "CTB"
+  },
+  "Ibiporã": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Imbituva": {
+    "praca": "PR-INT",
+    "unidade": "CTB"
+  },
+  "Itaipulândia": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Jandaia do Sul": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Londrina (Filial)": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Mamboré": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Mandaguaçu": {
+    "praca": "PR-NOR2",
+    "unidade": "MRG"
+  },
+  "Mandaguarí": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Marialva": {
+    "praca": "PR-NOR2",
+    "unidade": "MRG"
+  },
+  "Maringá (Filial)": {
+    "praca": "PR-NOR2",
+    "unidade": "MRG"
+  },
+  "Medianeira": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Paiçandú": {
+    "praca": "PR-NOR2",
+    "unidade": "MRG"
+  },
+  "Palmeira": {
+    "praca": "PR-INT",
+    "unidade": "CTB"
+  },
+  "Palotina": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Pato Branco": {
+    "praca": "PR-INT",
+    "unidade": "CTB"
+  },
+  "Pien": {
+    "praca": "SC-INT",
+    "unidade": "CTB"
+  },
+  "Pinhais": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Pirapó": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Piraquara": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Ponta Grossa": {
+    "praca": "PR-INT",
+    "unidade": "CTB"
+  },
+  "Prudentópolis": {
+    "praca": "PR-INT",
+    "unidade": "CTB"
+  },
+  "Quatro Barras": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "Rio Negro": {
+    "praca": "PR-INT",
+    "unidade": "CTB"
+  },
+  "Rolândia": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Sabáudia": {
+    "praca": "PR-NOR1",
+    "unidade": "LDA"
+  },
+  "Santa Tereza do Oeste": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Santa Terezinha de Itaipu": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "São José dos Pinhais": {
+    "praca": "PR-CAP",
+    "unidade": "CTB"
+  },
+  "São Miguel do Iguaçú": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Toledo": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Ubiratã": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "Umuarama": {
+    "praca": "PR-INT2",
+    "unidade": "MRG"
+  },
+  "União da Vitória": {
+    "praca": "SC-OESTE",
+    "unidade": "CTB"
+  },
+  "Adamantina": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Aguaí": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Agudos": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Alvares Machado": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Americana": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Amparo": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Aparecida": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Araçariguama": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Araçatuba": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Araraquara": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Araras": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Artur Nogueira": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Arujá": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Assis": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Atibaia": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Avaré": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Bady Bassitt": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Bálsamo": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Barra Bonita": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Barretos": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Barueri": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Batatais": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Bauru": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Bebedouro": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Bertioga": {
+    "praca": "SP-LITNOR",
+    "unidade": "SÃO"
+  },
+  "Birigui": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Boituva": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Botucatu": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Bragança Paulista": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Cabreúva": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Caçapava": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Caieiras": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Cajamar": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Campinas": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Campos do Jordão": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Capivari": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Caraguatatuba": {
+    "praca": "SP-LITNOR",
+    "unidade": "SÃO"
+  },
+  "Carapicuíba": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Catanduva": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Cerquilho": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Charqueada": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Colina": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Conchal": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Corumbataí": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Cosmópolis": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Cosmorama": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Cotia": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Cravinhos": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Cruzeiro": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Cubatão": {
+    "praca": "SP-LITSUL",
+    "unidade": "SÃO"
+  },
+  "Descalvado": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Diadema": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Dracena": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Elias Fausto": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Embú": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Embu-Guaçú": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Espírito Santo do Pinhal": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Fernandópolis": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Ferraz de Vasconcelos": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Franca": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Guaratinguetá": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Guariba": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Guarujá": {
+    "praca": "SP-LITSUL",
+    "unidade": "SÃO"
+  },
+  "Guarulhos (Matriz)": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Holambra": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Hortolândia": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Ibaté": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Ibirá": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Ibitinga": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Indaiatuba": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Indiana": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Iperó": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Iracemápolis": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Itapecerica da Serra": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Itapetininga": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Itapevi": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Itapira": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Itápolis": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Itaquaquecetuba": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Itatiba": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Itirapina": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Itú": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Itupeva": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Ituverava": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Jaboticabal": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Jacareí": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Jaguariúna": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Jandira": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Jardinópolis": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Jaú": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Jundiaí": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Leme": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Lençóis Paulista": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Limeira": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Lins": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Lorena": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Louveira": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Mairiporã": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Maresias": {
+    "praca": "SP-LITNOR",
+    "unidade": "SÃO"
+  },
+  "Marília": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Matão": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Mauá": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Meridiano": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Mirassol": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Mogi das Cruzes": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Mogi Guaçu": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Mogi Mirim": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Monte Azul Paulista": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Monte Mor": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Nova Odessa": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Olímpia": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Osasco": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Oscar Bressane": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Osvaldo Cruz": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Ourinhos": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Pardinho": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Paulínia": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Pederneiras": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Pedreira": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Penápolis": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Pindamonhangaba": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Piracicaba": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Pirassununga": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Poá": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Porto Feliz": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Porto Ferreira": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Praia Grande": {
+    "praca": "SP-LITSUL",
+    "unidade": "SÃO"
+  },
+  "Presidente Prudente": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Presidente Venceslau": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Promissão": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Quintana": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Ribeirão Pires": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Ribeirão Preto": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Rio Claro": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Salto": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Santa Bárbara do Oeste": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Santa Cruz do Rio Pardo": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Santa Isabel": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Santana de Parnaíba": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Santo André": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Santo Antônio de Posse": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Santos": {
+    "praca": "SP-LITSUL",
+    "unidade": "SÃO"
+  },
+  "São Bernardo do Campo": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "São Caetano do Sul": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "São João da Boa Vista": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "São Joaquim da Barra": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "São José do Rio Preto": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "São José dos Campos": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "São Manuel": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "São Paulo": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "São Sebastião": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "São Vicente": {
+    "praca": "SP-LITSUL",
+    "unidade": "SÃO"
+  },
+  "Serra Negra": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Sertãozinho": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Sorocaba": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Sumaré (Filial)": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Suzano": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Taboão da Serra": {
+    "praca": "SP-CAP",
+    "unidade": "SÃO"
+  },
+  "Tatuí": {
+    "praca": "SP-INT2",
+    "unidade": "SUM"
+  },
+  "Taubaté": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Tietê": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Tremembé": {
+    "praca": "SP-VPB",
+    "unidade": "SÃO"
+  },
+  "Tupã": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Ubatuba": {
+    "praca": "SP-LITNOR",
+    "unidade": "SÃO"
+  },
+  "Urupês": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Valentim Gentil": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Valinhos": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Vargem Grande Paulista": {
+    "praca": "SP-GDSP",
+    "unidade": "SÃO"
+  },
+  "Várzea Paulista": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Vinhedo": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Votorantim": {
+    "praca": "SP-INT1",
+    "unidade": "SUM"
+  },
+  "Votuporanga": {
+    "praca": "SP-INT3",
+    "unidade": "LDA"
+  },
+  "Alfenas": {
+    "praca": "MG-SUL",
+    "unidade": "SÃO"
+  },
+  "Araguari": {
+    "praca": "MG-UBE",
+    "unidade": "SUM"
+  },
+  "Astolfo Dutra": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Barbacena": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Belo Horizonte": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Betim": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Brumadinho": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Carmo do Cajurú": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Cláudio": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Congonhas": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Conselheiro Lafaiete": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Contagem (Filial)": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Coronel Fabriciano": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Divinópolis": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Extrema": {
+    "praca": "MG-SUL",
+    "unidade": "SÃO"
+  },
+  "Igarapé": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Ipatinga": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Itabira": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Itaguara": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Itaúna": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Jacutinga": {
+    "praca": "MG-SUL",
+    "unidade": "SUM"
+  },
+  "João Monlevade": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Juiz de Fora": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Lagoa Santa": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Machado": {
+    "praca": "MG-SUL",
+    "unidade": "SÃO"
+  },
+  "Mateus Leme": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Nova Lima": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Ouro Fino": {
+    "praca": "MG-SUL",
+    "unidade": "SUM"
+  },
+  "Pedro Leopoldo": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Poços de Caldas": {
+    "praca": "MG-SUL",
+    "unidade": "SUM"
+  },
+  "Pouso Alegre": {
+    "praca": "MG-SUL",
+    "unidade": "SÃO"
+  },
+  "Ribeirão das Neves": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Rodeiro": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Santa Luzia": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "São José da Lapa": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "São Sebastião do Paraíso": {
+    "praca": "MG-INT1",
+    "unidade": "SUM"
+  },
+  "Sete Lagoas": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Timóteo": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Tocantins": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Três Corações": {
+    "praca": "MG-SUL",
+    "unidade": "SÃO"
+  },
+  "Ubá": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Uberaba": {
+    "praca": "MG-UBE",
+    "unidade": "SUM"
+  },
+  "Uberlândia": {
+    "praca": "MG-UBE",
+    "unidade": "SUM"
+  },
+  "Varginha": {
+    "praca": "MG-SUL",
+    "unidade": "SÃO"
+  },
+  "Vespasiano": {
+    "praca": "MG-CAP",
+    "unidade": "BHZ"
+  },
+  "Visconde do Rio Branco": {
+    "praca": "MG-INT1",
+    "unidade": "BHZ"
+  },
+  "Angra dos Reis": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Araruama": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Armação dos Búzios": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Arraial do Cabo": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Bacaxá": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Barra do Piraí": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Barra Mansa": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Belford Roxo": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "Cabo Frio": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Cachoeiras de Macacu": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Campos dos Goytacazes": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Casimiro de Abreu": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Conceição de Jacareí": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Corrêas": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Córrego do Ouro": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Duque de Caxias": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "Guapimirim": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Iguaba Grande": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Itaboraí": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Itacurussa": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Itaipava": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Itatiaia": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Macaé": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Magé": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Mangaratiba": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Maricá": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Mesquita": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "Nilópolis": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "Niterói": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "Nova Friburgo": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Nova Iguaçu": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "Paracambi": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Petrópolis": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Piraí": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Porto Real": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Queimados": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "Resende": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Rio Bonito": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Rio das Ostras": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Rio de Janeiro (Filial)": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "São Gonçalo": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "São João de Meriti": {
+    "praca": "RJ-CAP",
+    "unidade": "RIO"
+  },
+  "São Pedro da Aldeia": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Saquarema": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Silva Jardim": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Tanguá": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Teresópolis": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Volta Redonda": {
+    "praca": "RJ-INT",
+    "unidade": "RIO"
+  },
+  "Cachoeiro de Itapemirim": {
+    "praca": "ES-CAP",
+    "unidade": "RIO"
+  },
+  "Cariacica": {
+    "praca": "ES-CAP",
+    "unidade": "RIO"
+  },
+  "Guarapari": {
+    "praca": "ES-CAP",
+    "unidade": "RIO"
+  },
+  "Viana": {
+    "praca": "ES-CAP",
+    "unidade": "RIO"
+  },
+  "Vila Velha": {
+    "praca": "ES-CAP",
+    "unidade": "RIO"
+  },
+  "Vitória": {
+    "praca": "ES-CAP",
+    "unidade": "RIO"
+  },
+  "Serra": {
+    "praca": "ES-CAP",
+    "unidade": "RIO"
+  },
+  "Alagoinhas": {
+    "praca": "BA-NOR",
+    "unidade": "SSA"
+  },
+  "Amélia Rodrigues": {
+    "praca": "BA-NOR",
+    "unidade": "SSA"
+  },
+  "Camaçari": {
+    "praca": "BA-CAP",
+    "unidade": "SSA"
+  },
+  "Candeias": {
+    "praca": "BA-CAP",
+    "unidade": "SSA"
+  },
+  "Catu": {
+    "praca": "BA-NOR",
+    "unidade": "SSA"
+  },
+  "Feira de Santana": {
+    "praca": "BA-NOR",
+    "unidade": "SSA"
+  },
+  "Humildes": {
+    "praca": "BA-CAP",
+    "unidade": "SSA"
+  },
+  "Itaparica": {
+    "praca": "BA-CAP",
+    "unidade": "SSA"
+  },
+  "Lauro de Freitas": {
+    "praca": "BA-CAP",
+    "unidade": "SSA"
+  },
+  "Madre de Deus": {
+    "praca": "BA-NOR",
+    "unidade": "SSA"
+  },
+  "Mata de São João": {
+    "praca": "BA-NOR",
+    "unidade": "SSA"
+  },
+  "Salvador (Filial)": {
+    "praca": "BA-CAP",
+    "unidade": "SSA"
+  },
+  "Santo Amaro": {
+    "praca": "BA-NOR",
+    "unidade": "SSA"
+  },
+  "Santo Antônio de Jesus": {
+    "praca": "BA-RCV",
+    "unidade": "SSA"
+  },
+  "São Francisco do Conde": {
+    "praca": "BA-NOR",
+    "unidade": "SSA"
+  },
+  "São Sebastião do Passé": {
+    "praca": "BA-NOR",
+    "unidade": "SSA"
+  },
+  "Simões Filho": {
+    "praca": "BA-CAP",
+    "unidade": "SSA"
+  },
+  "Abadia de Goiás": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Abadiânia": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Águas Lindas de Goiás": {
+    "praca": "DF-INT1",
+    "unidade": "GYN"
+  },
+  "Alexânia": {
+    "praca": "DF-INT1",
+    "unidade": "GYN"
+  },
+  "Anápolis": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Anicuns": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Aparecida de Goiânia": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Araçu": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Aragoiânia": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Bela Vista de Goiás": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Bonfinópolis": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Brazabrantes": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Caldazinha": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Campestre de Goiás": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Campo Limpo de Goiás": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Caturaí": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Cezarina": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Cidade Ocidental": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Formosa": {
+    "praca": "DF-INT1",
+    "unidade": "GYN"
+  },
+  "Goianápolis": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Goiânia": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Goianira": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Guapó": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Hidrolândia": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Inhumas": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Leopoldo de Bulhões": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Luziânia": {
+    "praca": "DF-INT1",
+    "unidade": "GYN"
+  },
+  "Nazário": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Nerópolis": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Nova Veneza": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Novo Gama": {
+    "praca": "DF-INT1",
+    "unidade": "GYN"
+  },
+  "Palmeiras de Goiás": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Petrolina de Goiás": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Santa Bárbara de Goiás": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Santo Antônio de Goiás": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Santo Antônio do Descoberto": {
+    "praca": "DF-INT1",
+    "unidade": "GYN"
+  },
+  "Senador Canedo": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Silvânia": {
+    "praca": "GO-INT1",
+    "unidade": "GYN"
+  },
+  "Terezópolis de Goiás": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Trindade": {
+    "praca": "GO-CAP",
+    "unidade": "GYN"
+  },
+  "Valparaíso de Goiás": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Brasília": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Brazlândia": {
+    "praca": "DF-INT1",
+    "unidade": "GYN"
+  },
+  "Candangolândia": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Ceilândia": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Gama": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Guará": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Núcleo Bandeirante": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Paranoá": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Planaltina": {
+    "praca": "DF-INT1",
+    "unidade": "GYN"
+  },
+  "Recanto das Emas": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Riacho Fundo I e II": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Samambaia": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Sobradinho": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  },
+  "Taguatinga": {
+    "praca": "DF-CAP",
+    "unidade": "GYN"
+  }
+}
