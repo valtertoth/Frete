@@ -111,22 +111,100 @@ function parseDacte(rows: Item[][], startIdx: number): CteParsed | null {
     if (val) freteTotal = toNumber(val.str);
   }
 
-  // DIM VOLUMES: e.g. "1,02x0,73x0,57x2"
+  // DIM VOLUMES: pode haver MÚLTIPLOS grupos separados por espaço/vírgula
+  // Ex: "1x0,75x0,57x3 0,85x0,95x0,75x1 0,75x0,95x0,55x1 1x1,9x0,12x1"
+  // Pode estender para a próxima linha (continuação após "DIM VOLUMES(NN):")
   let dimensoes: string | null = null;
   let m3: number | null = null;
   let quantidade: number | null = null;
   const dimRow = findRow(rows, ["DIM", "VOLUMES"], startIdx);
   if (dimRow) {
-    const dimItem = dimRow.row.find((it) => /\d+[,.]?\d*x\d+[,.]?\d*x\d+[,.]?\d*/.test(it.str));
-    if (dimItem) {
-      dimensoes = dimItem.str;
-      // Parse: "1,02x0,73x0,57x2" → 1.02 * 0.73 * 0.57 * 2
-      const parts = dimItem.str.split("x").map((p) => parseFloat(p.replace(",", ".")));
-      if (parts.length >= 3 && parts.every((n) => !isNaN(n))) {
-        const qty = parts.length === 4 ? parts[3] : 1;
-        quantidade = qty;
-        m3 = parts[0] * parts[1] * parts[2] * qty;
+    // Coleta tokens de dimensão na linha do DIM VOLUMES E na linha seguinte (até x<260)
+    const dimRegex = /^,?\d+[,.]?\d*x\d+[,.]?\d*x\d+[,.]?\d*x?\d*$/;
+    // Limpeza: remove letras "bleed" como C, F, I que vazam da coluna ao lado
+    const cleanToken = (s: string) => s.replace(/[A-Za-z]/g, "").replace(/^,/, "");
+    const collected: string[] = [];
+    // Linha do DIM VOLUMES
+    for (const it of dimRow.row) {
+      if (it.x > 260) break;
+      const cleaned = cleanToken(it.str);
+      if (/^\d+[,.]?\d*x\d+[,.]?\d*x\d+[,.]?\d*x?\d*$/.test(cleaned)) {
+        collected.push(cleaned);
       }
+    }
+    // Linha seguinte (continuação)
+    const nextRow = rows[dimRow.idx + 1];
+    if (nextRow) {
+      for (const it of nextRow.row) {
+        if (it.x > 260) break;
+        const cleaned = cleanToken(it.str);
+        if (/^\d+[,.]?\d*x\d+[,.]?\d*x\d+[,.]?\d*x?\d*$/.test(cleaned)) {
+          collected.push(cleaned);
+        } else if (dimRegex.test(it.str)) {
+          collected.push(cleanToken(it.str));
+        }
+      }
+    }
+    if (collected.length > 0) {
+      dimensoes = collected.join(" ");
+      let totalM3 = 0;
+      let totalQty = 0;
+      for (const grupo of collected) {
+        const parts = grupo.split("x").map((p) => parseFloat(p.replace(",", ".")));
+        if (parts.length >= 3 && parts.slice(0, 3).every((n) => !isNaN(n))) {
+          const qty = parts.length === 4 && !isNaN(parts[3]) ? parts[3] : 1;
+          totalQty += qty;
+          totalM3 += parts[0] * parts[1] * parts[2] * qty;
+        }
+      }
+      if (totalM3 > 0) {
+        m3 = Math.round(totalM3 * 10000) / 10000;
+        quantidade = totalQty;
+      }
+    }
+  }
+
+  // VALOR MERCADORIA: texto vertical na coluna MERCADORIA (x≈520-560)
+  // Estratégia: localiza header "MERCADORIA" (y≈115) e coleta dígitos/vírgulas/pontos
+  // na coluna lateral direita ordenados por (x, y) — leitura vertical
+  let valorMercadoria: number | null = null;
+  const mercHeader = findRow(rows, ["MERCADORIA"], startIdx);
+  if (mercHeader) {
+    const headerY = mercHeader.row[0].y;
+    // Coleta caracteres na zona de valor (x>515, y entre header+5 e header+30)
+    const charItems: Item[] = [];
+    for (const r of rows) {
+      if (r[0].y < headerY || r[0].y > headerY + 25) continue;
+      for (const it of r) {
+        if (it.x >= 515 && it.x <= 565 && /^[\d,.]$/.test(it.str)) {
+          charItems.push(it);
+        }
+      }
+    }
+    // Ordena por coluna (x) crescente, depois y — lê vertical → cada coluna tem 1 caractere
+    charItems.sort((a, b) => a.x - b.x || a.y - b.y);
+    // Agrupa por coluna x (tolerância 2)
+    const byCol: Record<string, Item[]> = {};
+    for (const ch of charItems) {
+      const k = Math.round(ch.x);
+      // Tenta achar coluna existente próxima
+      let key = String(k);
+      for (const existing of Object.keys(byCol)) {
+        if (Math.abs(Number(existing) - k) <= 2) {
+          key = existing;
+          break;
+        }
+      }
+      (byCol[key] ||= []).push(ch);
+    }
+    // Cada coluna deve ter 1 caractere; pega o primeiro de cada coluna ordenado por x
+    const cols = Object.keys(byCol)
+      .map(Number)
+      .sort((a, b) => a - b);
+    const str = cols.map((c) => byCol[String(c)][0]?.str ?? "").join("");
+    // Aceita formato BR: 15.510,96 ou 5193,92
+    if (/^\d{1,3}(\.\d{3})*,\d{2}$/.test(str) || /^\d+,\d{2}$/.test(str)) {
+      valorMercadoria = toNumber(str);
     }
   }
 
@@ -146,7 +224,7 @@ function parseDacte(rows: Item[][], startIdx: number): CteParsed | null {
     origem,
     destino,
     freteTotal,
-    valorMercadoria: null,
+    valorMercadoria,
     m3,
     dimensoes,
     quantidade,
@@ -157,33 +235,8 @@ function parseDacte(rows: Item[][], startIdx: number): CteParsed | null {
 export async function parseCtePdf(file: File): Promise<CteParsed[]> {
   const { items } = await loadItems(file);
   const rows = groupRows(items);
-  const results: CteParsed[] = [];
-
-  // Find each "FRETE TOTAL" occurrence — there are typically 2 per page (2 DACTE copies)
-  let cursor = 0;
-  while (cursor < rows.length) {
-    const found = findRow(rows, ["FRETE", "TOTAL"], cursor);
-    if (!found) break;
-    // Find the start of THIS dacte (search backwards for "NÚMERO" header)
-    let startIdx = 0;
-    for (let i = found.idx; i >= cursor; i--) {
-      const t = rows[i].map((x) => x.str).join(" ").toUpperCase();
-      if (t.includes("NUMERO") || t.includes("\uFFFDMERO") || t.includes("N\uFFFDMERO")) {
-        startIdx = i;
-        break;
-      }
-    }
-    const parsed = parseDacte(rows, startIdx);
-    if (parsed) results.push(parsed);
-    cursor = found.idx + 1;
-  }
-
-  // Deduplicate by numeroCTE
-  const seen = new Set<string>();
-  return results.filter((r) => {
-    if (!r.numeroCTE) return true;
-    if (seen.has(r.numeroCTE)) return false;
-    seen.add(r.numeroCTE);
-    return true;
-  });
+  // PDF DACTE da Vipex tem 2 vias idênticas na mesma página.
+  // Parseia apenas a primeira (top-half).
+  const parsed = parseDacte(rows, 0);
+  return parsed ? [parsed] : [];
 }
