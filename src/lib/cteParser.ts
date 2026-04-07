@@ -14,6 +14,8 @@ export interface CteParsed {
   destino: string;
   freteTotal: number;
   valorMercadoria: number | null;
+  destinatarioCidade: string | null;
+  destinatarioUF: string | null;
   m3: number | null;
   dimensoes: string | null;
   quantidade: number | null;
@@ -187,6 +189,23 @@ function parseDacte(rows: ReturnType<typeof buildRows>): CteParsed | null {
   const icmsMatch = fullText.match(/ICMS\/?(?:ISS)?:?\s*[A-Z]?(\d+(?:\.\d{3})*,\d{2})/i);
   if (icmsMatch) icms = toNumber(icmsMatch[1]);
 
+  // 7) DESTINATARIO MUN — primeira linha "MUN ... - UF" após "DESTINATARIO"
+  let destinatarioCidade: string | null = null;
+  let destinatarioUF: string | null = null;
+  const destIdx = rows.findIndex((r) => /DESTINATARIO/i.test(r.text));
+  if (destIdx >= 0) {
+    for (let k = 1; k <= 4; k++) {
+      const r = rows[destIdx + k];
+      if (!r) break;
+      const m = r.text.match(/MUN\s+(.+?)\s*-\s*([A-Z]{2})\s+CEP/i);
+      if (m) {
+        destinatarioCidade = m[1].trim();
+        destinatarioUF = m[2].trim();
+        break;
+      }
+    }
+  }
+
   if (!numeroCTE && !freteTotal && !origem) return null;
 
   return {
@@ -195,6 +214,8 @@ function parseDacte(rows: ReturnType<typeof buildRows>): CteParsed | null {
     destino,
     freteTotal,
     valorMercadoria,
+    destinatarioCidade,
+    destinatarioUF,
     m3,
     dimensoes,
     quantidade,

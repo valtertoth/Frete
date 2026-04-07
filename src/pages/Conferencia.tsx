@@ -85,8 +85,12 @@ export function Conferencia() {
 
   const tryAutoPraca = async (row: ConferenciaRow): Promise<string> => {
     if (row.pracaDestino) return row.pracaDestino;
-    if (!transportadora || !row.parsed.destino) return "";
-    const destCity = row.parsed.destino.split("/")[0].trim();
+    if (!transportadora) return "";
+    // Prioriza cidade do DESTINATÁRIO (cliente final), com fallback no destino da prestação
+    const destCity =
+      row.parsed.destinatarioCidade ||
+      row.parsed.destino.split("/")[0].trim();
+    if (!destCity) return "";
     const { data } = await supabase
       .from("transportadora_cidade_praca")
       .select("praca")
