@@ -135,7 +135,7 @@ function parseDacte(rows: Item[][], startIdx: number): CteParsed | null {
     // Linha seguinte (continuação)
     const nextRow = rows[dimRow.idx + 1];
     if (nextRow) {
-      for (const it of nextRow.row) {
+      for (const it of nextRow) {
         if (it.x > 260) break;
         const cleaned = cleanToken(it.str);
         if (/^\d+[,.]?\d*x\d+[,.]?\d*x\d+[,.]?\d*x?\d*$/.test(cleaned)) {
