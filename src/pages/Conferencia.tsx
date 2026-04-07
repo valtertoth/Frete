@@ -96,19 +96,26 @@ export function Conferencia() {
       s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
     const target = norm(destCity);
 
-    // 1) Match exato sem acento — busca todas cidades começando com primeira palavra
-    const firstWord = destCity.split(/\s+/)[0];
+    // ilike não ignora acentos, então buscamos pela palavra mais longa
+    // (mais distintiva) usando %palavra% e depois filtramos sem acento.
+    const words = destCity.split(/\s+/).filter((w) => w.length >= 3);
+    const longest = words.sort((a, b) => b.length - a.length)[0] || destCity;
     const { data } = await supabase
       .from("transportadora_cidade_praca")
-      .select("cidade,praca")
+      .select("cidade,praca,estado")
       .eq("transportadora_id", transportadora.id)
-      .ilike("cidade", `${firstWord}%`)
-      .limit(50);
-    if (data) {
-      const exact = data.find((r) => norm(r.cidade) === target);
+      .ilike("cidade", `%${longest}%`)
+      .limit(100);
+    if (data && data.length > 0) {
+      // Filtra também pela UF se disponível
+      const uf = row.parsed.destinatarioUF;
+      const candidates = uf
+        ? data.filter((r) => !r.estado || r.estado.toUpperCase() === uf.toUpperCase())
+        : data;
+      const list = candidates.length > 0 ? candidates : data;
+      const exact = list.find((r) => norm(r.cidade) === target);
       if (exact) return exact.praca;
-      // Aceita prefix match também
-      const prefix = data.find((r) => norm(r.cidade).startsWith(target));
+      const prefix = list.find((r) => norm(r.cidade).startsWith(target));
       if (prefix) return prefix.praca;
     }
     return "";
