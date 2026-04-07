@@ -1,8 +1,9 @@
 // CTE (DACTE) PDF parser — Vipex format 2025/2026
-// Strategy: anchor-based extraction using x/y positions from pdf.js getTextContent
+// Strategy: dump pdf.js text items into joined rows, then regex over the text.
+// Robust to font encoding issues (\uFFFD), char fragmentation and column bleed.
 
 import * as pdfjsLib from "pdfjs-dist";
-// @ts-ignore - vite worker import
+// @ts-ignore
 import workerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
@@ -22,16 +23,14 @@ export interface CteParsed {
 interface Item {
   str: string;
   x: number;
-  y: number; // top-down (page top = 0)
+  y: number;
 }
-
-const BR_NUM = /^-?\d{1,3}(\.\d{3})*,\d{2}$/;
 
 function toNumber(s: string): number {
   return parseFloat(s.replace(/\./g, "").replace(",", "."));
 }
 
-async function loadItems(file: File): Promise<{ items: Item[]; height: number }> {
+async function loadItems(file: File): Promise<Item[]> {
   const buf = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
   const page = await pdf.getPage(1);
@@ -42,182 +41,153 @@ async function loadItems(file: File): Promise<{ items: Item[]; height: number }>
     const str = (it.str || "").trim();
     if (!str) continue;
     const tr = it.transform;
-    const x = tr[4];
-    const y = viewport.height - tr[5]; // top-down
-    items.push({ str, x, y });
+    items.push({ str, x: tr[4], y: viewport.height - tr[5] });
   }
-  return { items, height: viewport.height };
+  return items;
 }
 
-// Group items into rows by y proximity
-function groupRows(items: Item[], tol = 2): Item[][] {
+// Group items by row (similar y), join with single space
+function buildRows(items: Item[], tol = 2): { y: number; text: string; items: Item[] }[] {
   const sorted = [...items].sort((a, b) => a.y - b.y || a.x - b.x);
-  const rows: Item[][] = [];
+  const rows: { y: number; items: Item[] }[] = [];
   for (const it of sorted) {
     const last = rows[rows.length - 1];
-    if (last && Math.abs(last[0].y - it.y) <= tol) {
-      last.push(it);
+    if (last && Math.abs(last.y - it.y) <= tol) {
+      last.items.push(it);
     } else {
-      rows.push([it]);
+      rows.push({ y: it.y, items: [it] });
     }
   }
-  rows.forEach((r) => r.sort((a, b) => a.x - b.x));
-  return rows;
+  return rows.map((r) => {
+    r.items.sort((a, b) => a.x - b.x);
+    return { y: r.y, text: r.items.map((i) => i.str).join(" "), items: r.items };
+  });
 }
 
-// Find first row containing any of given keywords (case-insensitive substring on joined text)
-function findRow(rows: Item[][], keywords: string[], startIdx = 0): { row: Item[]; idx: number } | null {
-  for (let i = startIdx; i < rows.length; i++) {
-    const text = rows[i].map((x) => x.str).join(" ").toUpperCase();
-    if (keywords.every((k) => text.includes(k.toUpperCase()))) {
-      return { row: rows[i], idx: i };
+function parseDimVolumes(text: string): { m3: number; quantidade: number; dimensoes: string } | null {
+  // Tira "DIM VOLUMES(NN):" do início
+  let cleaned = text.replace(/DIM\s*VOLUMES?\s*\(?\d*\)?\s*:?/i, " ");
+  // Remove letras "bleed" (C, F, I etc) entre dígitos: 0,75Cx1 → 0,75x1
+  cleaned = cleaned.replace(/(\d)[A-Za-z](?=x)/g, "$1");
+  cleaned = cleaned.replace(/x[A-Za-z](\d)/g, "x$1");
+  const re = /(\d+(?:[.,]\d+)?)x(\d+(?:[.,]\d+)?)x(\d+(?:[.,]\d+)?)(?:x(\d+))?/gi;
+  const grupos: { dims: number[]; qty: number }[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(cleaned))) {
+    const a = parseFloat(m[1].replace(",", "."));
+    const b = parseFloat(m[2].replace(",", "."));
+    const c = parseFloat(m[3].replace(",", "."));
+    const q = m[4] ? parseInt(m[4], 10) : 1;
+    if (a > 0 && b > 0 && c > 0 && a < 10 && b < 10 && c < 10) {
+      grupos.push({ dims: [a, b, c], qty: q });
     }
   }
-  return null;
+  if (grupos.length === 0) return null;
+  let totalM3 = 0;
+  let totalQty = 0;
+  const labels: string[] = [];
+  for (const g of grupos) {
+    totalM3 += g.dims[0] * g.dims[1] * g.dims[2] * g.qty;
+    totalQty += g.qty;
+    labels.push(`${g.dims.join("x")}${g.qty > 1 ? "x" + g.qty : ""}`);
+  }
+  return {
+    m3: Math.round(totalM3 * 10000) / 10000,
+    quantidade: totalQty,
+    dimensoes: labels.join(" + "),
+  };
 }
 
-function parseDacte(rows: Item[][], startIdx: number): CteParsed | null {
-  // CTE NUMBER: row containing "NÚMERO" header → next row, find 9-digit token
-  const numHeader = findRow(rows, ["NUMERO"], startIdx) || findRow(rows, ["N\uFFFDMERO"], startIdx);
+function parseDacte(rows: ReturnType<typeof buildRows>): CteParsed | null {
+  // Joga tudo num blob "linha por linha" pra regex
+  const fullText = rows.map((r) => r.text).join("\n");
+
+  // 1) NÚMERO DO CTE — header tem encoding bagunçado, busca direto por 9 dígitos
+  // logo após "NÚMERO" (com qualquer encoding) ou independente: o 9-digit token mais provável
   let numeroCTE = "";
-  if (numHeader) {
-    const valRow = rows[numHeader.idx + 1];
-    if (valRow) {
-      const tok = valRow.find((it) => /^\d{6,}$/.test(it.str));
-      if (tok) numeroCTE = tok.str.replace(/^0+/, "");
-    }
-  }
+  const numMatch =
+    fullText.match(/N[A-Z\uFFFD]MERO[\s\S]{0,80}?(\d{6,12})/i) ||
+    fullText.match(/\b(\d{9})\b/);
+  if (numMatch) numeroCTE = numMatch[1].replace(/^0+/, "");
 
-  // ORIGEM/DESTINO: row containing "ORIGEM" "PRESTA" → next row has "CITY/UF" tokens
-  const origDest = findRow(rows, ["ORIGEM", "DESTINO"], startIdx);
+  // 2) ORIGEM / DESTINO — linha após "ORIGEM ... DESTINO"
   let origem = "";
   let destino = "";
-  if (origDest) {
-    const valRow = rows[origDest.idx + 1];
-    if (valRow) {
-      // Group consecutive items into segments by x columns: origem (x<120), destino (120<=x<220)
-      const oTokens = valRow.filter((it) => it.x < 120).map((it) => it.str);
-      const dTokens = valRow.filter((it) => it.x >= 120 && it.x < 220).map((it) => it.str);
-      origem = oTokens.join(" ").trim();
-      destino = dTokens.join(" ").trim();
+  const origDestIdx = rows.findIndex((r) => /ORIGEM[\s\S]*DESTINO/i.test(r.text));
+  if (origDestIdx >= 0 && rows[origDestIdx + 1]) {
+    const valRow = rows[origDestIdx + 1];
+    // Origem: tokens com x<120, destino: 120<=x<220
+    const oTokens = valRow.items.filter((i) => i.x < 120).map((i) => i.str);
+    const dTokens = valRow.items.filter((i) => i.x >= 120 && i.x < 220).map((i) => i.str);
+    origem = oTokens.join(" ").trim();
+    destino = dTokens.join(" ").trim();
+  }
+  // Fallback: regex de "CITY/UF"
+  if (!origem) {
+    const m = fullText.match(/([A-Z\u00C0-\u00DC ]+\/[A-Z]{2})\s+([A-Z\u00C0-\u00DC ]+\/[A-Z]{2})/);
+    if (m) {
+      origem = m[1].trim();
+      destino = m[2].trim();
     }
   }
 
-  // FRETE TOTAL: row with "FRETE" "TOTAL"
+  // 3) FRETE TOTAL — busca linha com "FRETE TOTAL" e pega último número BR
   let freteTotal = 0;
-  const fretRow = findRow(rows, ["FRETE", "TOTAL"], startIdx);
-  if (fretRow) {
-    const val = fretRow.row.find((it) => BR_NUM.test(it.str) && it.x > 350 && it.x < 470);
-    if (val) freteTotal = toNumber(val.str);
+  const fretIdx = rows.findIndex((r) => /FRETE\s*TOTAL/i.test(r.text));
+  if (fretIdx >= 0) {
+    // pode estar na mesma linha ou na próxima
+    const candidates = [rows[fretIdx], rows[fretIdx + 1]].filter(Boolean);
+    for (const r of candidates) {
+      const matches = r.text.match(/\d{1,3}(?:\.\d{3})*,\d{2}/g);
+      if (matches && matches.length > 0) {
+        freteTotal = toNumber(matches[0]);
+        break;
+      }
+    }
   }
 
-  // DIM VOLUMES: pode haver MÚLTIPLOS grupos separados por espaço/vírgula
-  // Ex: "1x0,75x0,57x3 0,85x0,95x0,75x1 0,75x0,95x0,55x1 1x1,9x0,12x1"
-  // Pode estender para a próxima linha (continuação após "DIM VOLUMES(NN):")
+  // 4) DIM VOLUMES — pega linha com "DIM" + "VOLUMES" + concatena próximas linhas até virar texto não-dim
   let dimensoes: string | null = null;
   let m3: number | null = null;
   let quantidade: number | null = null;
-  const dimRow = findRow(rows, ["DIM", "VOLUMES"], startIdx);
-  if (dimRow) {
-    // Coleta tokens de dimensão na linha do DIM VOLUMES E na linha seguinte (até x<260)
-    const dimRegex = /^,?\d+[,.]?\d*x\d+[,.]?\d*x\d+[,.]?\d*x?\d*$/;
-    // Limpeza: remove letras "bleed" como C, F, I que vazam da coluna ao lado
-    const cleanToken = (s: string) => s.replace(/[A-Za-z]/g, "").replace(/^,/, "");
-    const collected: string[] = [];
-    // Linha do DIM VOLUMES
-    for (const it of dimRow.row) {
-      if (it.x > 260) break;
-      const cleaned = cleanToken(it.str);
-      if (/^\d+[,.]?\d*x\d+[,.]?\d*x\d+[,.]?\d*x?\d*$/.test(cleaned)) {
-        collected.push(cleaned);
-      }
+  const dimIdx = rows.findIndex((r) => /DIM\s*VOLUMES/i.test(r.text));
+  if (dimIdx >= 0) {
+    // Pega a linha do DIM e quebra em "antes do ICMS/ISS:" → preserva orfão final
+    const dimRowText = rows[dimIdx].text;
+    const cutAt = dimRowText.search(/ICMS\/?ISS|CST:|Apolice|Seguradora|TABELA:|TIPO\s*MERCAD/i);
+    const dimPart = cutAt > 0 ? dimRowText.slice(0, cutAt).trimEnd() : dimRowText;
+    // Junta com próxima linha (continuação que começa com dígito ou vírgula)
+    const next = rows[dimIdx + 1];
+    let blob = dimPart;
+    if (next && /^[\s,.\d]/.test(next.text)) {
+      // Cola sem espaço se dimPart termina em dígito e next começa com vírgula/dígito
+      const sep = /\d$/.test(dimPart) && /^[,.\d]/.test(next.text) ? "" : " ";
+      blob = dimPart + sep + next.text;
     }
-    // Linha seguinte (continuação)
-    const nextRow = rows[dimRow.idx + 1];
-    if (nextRow) {
-      for (const it of nextRow) {
-        if (it.x > 260) break;
-        const cleaned = cleanToken(it.str);
-        if (/^\d+[,.]?\d*x\d+[,.]?\d*x\d+[,.]?\d*x?\d*$/.test(cleaned)) {
-          collected.push(cleaned);
-        } else if (dimRegex.test(it.str)) {
-          collected.push(cleanToken(it.str));
-        }
-      }
-    }
-    if (collected.length > 0) {
-      dimensoes = collected.join(" ");
-      let totalM3 = 0;
-      let totalQty = 0;
-      for (const grupo of collected) {
-        const parts = grupo.split("x").map((p) => parseFloat(p.replace(",", ".")));
-        if (parts.length >= 3 && parts.slice(0, 3).every((n) => !isNaN(n))) {
-          const qty = parts.length === 4 && !isNaN(parts[3]) ? parts[3] : 1;
-          totalQty += qty;
-          totalM3 += parts[0] * parts[1] * parts[2] * qty;
-        }
-      }
-      if (totalM3 > 0) {
-        m3 = Math.round(totalM3 * 10000) / 10000;
-        quantidade = totalQty;
-      }
+    // Agora corta novamente para remover trailing junk
+    blob = blob.replace(/(CST:|Apolice|ICMS\/?ISS|Seguradora|TABELA:|TIPO\s*MERCAD).*$/i, "");
+    const dim = parseDimVolumes(blob);
+    if (dim) {
+      m3 = dim.m3;
+      quantidade = dim.quantidade;
+      dimensoes = dim.dimensoes;
     }
   }
 
-  // VALOR MERCADORIA: texto vertical na coluna MERCADORIA (x≈520-560)
-  // Estratégia: localiza header "MERCADORIA" (y≈115) e coleta dígitos/vírgulas/pontos
-  // na coluna lateral direita ordenados por (x, y) — leitura vertical
+  // 5) VALOR MERCADORIA — texto geralmente vertical na coluna direita.
+  // Estratégia A: regex em qualquer lugar do texto para "VALOR MERCADORIA" + número.
+  // Estratégia B: ler vertical column nos items.
   let valorMercadoria: number | null = null;
-  const mercHeader = findRow(rows, ["MERCADORIA"], startIdx);
-  if (mercHeader) {
-    const headerY = mercHeader.row[0].y;
-    // Coleta caracteres na zona de valor (x>515, y entre header+5 e header+30)
-    const charItems: Item[] = [];
-    for (const r of rows) {
-      if (r[0].y < headerY || r[0].y > headerY + 25) continue;
-      for (const it of r) {
-        if (it.x >= 515 && it.x <= 565 && /^[\d,.]$/.test(it.str)) {
-          charItems.push(it);
-        }
-      }
-    }
-    // Ordena por coluna (x) crescente, depois y — lê vertical → cada coluna tem 1 caractere
-    charItems.sort((a, b) => a.x - b.x || a.y - b.y);
-    // Agrupa por coluna x (tolerância 2)
-    const byCol: Record<string, Item[]> = {};
-    for (const ch of charItems) {
-      const k = Math.round(ch.x);
-      // Tenta achar coluna existente próxima
-      let key = String(k);
-      for (const existing of Object.keys(byCol)) {
-        if (Math.abs(Number(existing) - k) <= 2) {
-          key = existing;
-          break;
-        }
-      }
-      (byCol[key] ||= []).push(ch);
-    }
-    // Cada coluna deve ter 1 caractere; pega o primeiro de cada coluna ordenado por x
-    const cols = Object.keys(byCol)
-      .map(Number)
-      .sort((a, b) => a - b);
-    const str = cols.map((c) => byCol[String(c)][0]?.str ?? "").join("");
-    // Aceita formato BR: 15.510,96 ou 5193,92
-    if (/^\d{1,3}(\.\d{3})*,\d{2}$/.test(str) || /^\d+,\d{2}$/.test(str)) {
-      valorMercadoria = toNumber(str);
-    }
-  }
+  // A: procura sequência depois de "VALOR MERCADORIA"
+  const vmMatch = fullText.match(/VALOR\s*MERCADORIA[\s\S]{0,50}?(\d{1,3}(?:\.\d{3})*,\d{2})/i);
+  if (vmMatch) valorMercadoria = toNumber(vmMatch[1]);
 
-  // ICMS: look for "ICMS/ISS:" or similar followed by number in observações row
+  // 6) ICMS — busca "ICMS/ISS:" com valor
   let icms: number | null = null;
-  const icmsRow = findRow(rows, ["ICMS"], startIdx);
-  if (icmsRow) {
-    const txt = icmsRow.row.map((it) => it.str).join("");
-    const match = txt.match(/(\d+,\d{2})/);
-    if (match) icms = toNumber(match[1]);
-  }
+  const icmsMatch = fullText.match(/ICMS\/?(?:ISS)?:?\s*[A-Z]?(\d+(?:\.\d{3})*,\d{2})/i);
+  if (icmsMatch) icms = toNumber(icmsMatch[1]);
 
-  if (!numeroCTE && !freteTotal) return null;
+  if (!numeroCTE && !freteTotal && !origem) return null;
 
   return {
     numeroCTE,
@@ -233,10 +203,17 @@ function parseDacte(rows: Item[][], startIdx: number): CteParsed | null {
 }
 
 export async function parseCtePdf(file: File): Promise<CteParsed[]> {
-  const { items } = await loadItems(file);
-  const rows = groupRows(items);
-  // PDF DACTE da Vipex tem 2 vias idênticas na mesma página.
-  // Parseia apenas a primeira (top-half).
-  const parsed = parseDacte(rows, 0);
+  const items = await loadItems(file);
+  const rows = buildRows(items);
+
+  // Expor pra debug
+  if (typeof window !== "undefined") {
+    (window as any).__cteDebug = { items, rows };
+  }
+
+  // PDF DACTE Vipex tem 2 vias idênticas — só precisamos da primeira metade.
+  // Limita rows à metade superior da página (y < 410 aprox).
+  const half = rows.filter((r) => r.y < 410);
+  const parsed = parseDacte(half);
   return parsed ? [parsed] : [];
 }
