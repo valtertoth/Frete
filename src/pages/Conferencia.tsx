@@ -91,13 +91,27 @@ export function Conferencia() {
       row.parsed.destinatarioCidade ||
       row.parsed.destino.split("/")[0].trim();
     if (!destCity) return "";
+    // Normaliza removendo acentos para comparação
+    const norm = (s: string) =>
+      s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
+    const target = norm(destCity);
+
+    // 1) Match exato sem acento — busca todas cidades começando com primeira palavra
+    const firstWord = destCity.split(/\s+/)[0];
     const { data } = await supabase
       .from("transportadora_cidade_praca")
-      .select("praca")
+      .select("cidade,praca")
       .eq("transportadora_id", transportadora.id)
-      .ilike("cidade", destCity)
-      .limit(1);
-    return data?.[0]?.praca ?? "";
+      .ilike("cidade", `${firstWord}%`)
+      .limit(50);
+    if (data) {
+      const exact = data.find((r) => norm(r.cidade) === target);
+      if (exact) return exact.praca;
+      // Aceita prefix match também
+      const prefix = data.find((r) => norm(r.cidade).startsWith(target));
+      if (prefix) return prefix.praca;
+    }
+    return "";
   };
 
   const handleFiles = async (files: FileList | null) => {
