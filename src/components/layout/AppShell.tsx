@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Calculator, Settings, LogOut } from "lucide-react";
+import { Calculator, Settings, LogOut, FileCheck } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 export function AppShell() {
@@ -11,6 +11,7 @@ export function AppShell() {
 
   const navItems = [
     { to: "/", label: "Calculadora", icon: Calculator },
+    { to: "/conferencia", label: "Conferência", icon: FileCheck },
     { to: "/admin", label: "Admin", icon: Settings },
   ];
 

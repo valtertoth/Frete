@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppShell } from "@/components/layout/AppShell";
 import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
 import { Calculadora } from "@/pages/Calculadora";
+import { Conferencia } from "@/pages/Conferencia";
 import { Admin } from "@/pages/Admin";
 import { Auth } from "@/pages/Auth";
 import { Toaster } from "@/components/ui/toaster";
@@ -30,6 +31,7 @@ function App() {
             }
           >
             <Route path="/" element={<Calculadora />} />
+            <Route path="/conferencia" element={<Conferencia />} />
             <Route path="/admin" element={<Admin />} />
           </Route>
         </Routes>
