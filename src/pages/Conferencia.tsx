@@ -60,67 +60,106 @@ export function Conferencia() {
 
   const transportadora = transportadoras?.find((t) => t.id === transportadoraId);
 
-  const tryAutoOrigem = (parsedOrigem: string): string => {
-    if (!origens) return "";
-    const uf = parsedOrigem.split("/")[1]?.trim().toUpperCase();
-    if (!uf) return "";
-    // Prioriza origens cujo CÓDIGO começa com a UF
-    const byCodigo = origens.find((o) => o.codigo.toUpperCase().startsWith(uf));
-    if (byCodigo) return byCodigo.codigo;
-    // Senão tenta pelo nome
-    const byNome = origens.find((o) =>
-      (o.nome || "").toUpperCase().includes(uf)
-    );
-    return byNome?.codigo ?? "";
+  // Capitais brasileiras (normalizadas, sem acento, maiúsculas)
+  const CAPITAIS: Record<string, string> = {
+    SP: "SAO PAULO", RJ: "RIO DE JANEIRO", MG: "BELO HORIZONTE",
+    RS: "PORTO ALEGRE", PR: "CURITIBA", SC: "FLORIANOPOLIS",
+    BA: "SALVADOR", PE: "RECIFE", CE: "FORTALEZA", DF: "BRASILIA",
+    GO: "GOIANIA", MT: "CUIABA", MS: "CAMPO GRANDE", ES: "VITORIA",
+    PA: "BELEM", AM: "MANAUS", MA: "SAO LUIS", PI: "TERESINA",
+    RN: "NATAL", PB: "JOAO PESSOA", AL: "MACEIO", SE: "ARACAJU",
+    RO: "PORTO VELHO", AC: "RIO BRANCO", AP: "MACAPA", RR: "BOA VISTA",
+    TO: "PALMAS",
   };
 
-  // Quando origens carregar (depois dos rows), preenche o que faltou
+  const norm = (s: string) =>
+    s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
+
+  /**
+   * Infere a origem cruzando: (a) origens da Vipex que têm tabela_frete pra praça destino
+   * (b) UF da cidade origem do CTE (c) heurística capital/interior.
+   */
+  const tryAutoOrigem = async (
+    parsedOrigem: string,
+    pracaDestino: string
+  ): Promise<string> => {
+    if (!origens || !transportadora || !pracaDestino) return "";
+    const cidadeOrig = parsedOrigem.split("/")[0]?.trim() || "";
+    const uf = parsedOrigem.split("/")[1]?.trim().toUpperCase();
+    if (!uf) return "";
+
+    // Busca quais origens da transportadora atendem essa praça
+    const { data: tab } = await supabase
+      .from("transportadora_tabela_frete")
+      .select("origem_codigo")
+      .eq("transportadora_id", transportadora.id)
+      .eq("praca_destino", pracaDestino);
+    if (!tab || tab.length === 0) return "";
+    const codigosQueAtendem = Array.from(new Set(tab.map((r) => r.origem_codigo)));
+
+    // Filtra pelas origens cujo código começa com a UF
+    const candidatos = origens
+      .filter((o) => codigosQueAtendem.includes(o.codigo))
+      .filter((o) => o.codigo.toUpperCase().startsWith(uf));
+    if (candidatos.length === 0) return "";
+    if (candidatos.length === 1) return candidatos[0].codigo;
+
+    // Múltiplos: heurística capital vs interior
+    const ehCapital = norm(cidadeOrig) === CAPITAIS[uf];
+    const cap = candidatos.find((c) => /-CAP/.test(c.codigo));
+    const intr = candidatos.find((c) => /-INT/.test(c.codigo));
+    if (ehCapital && cap) return cap.codigo;
+    if (!ehCapital && intr) return intr.codigo;
+    return candidatos[0].codigo;
+  };
+
+  // Quando origens carregar depois dos rows, tenta preencher origem que faltou
   useEffect(() => {
     if (!origens || !transportadora) return;
-    setRows((prev) => {
-      let changed = false;
-      const next = prev.map((r) => {
-        if (r.origemCodigo) return r;
-        const auto = tryAutoOrigem(r.parsed.origem);
-        if (auto) {
-          changed = true;
-          return { ...r, origemCodigo: auto };
-        }
-        return r;
-      });
-      return changed ? next : prev;
-    });
+    (async () => {
+      const updates: Array<[string, string]> = [];
+      for (const r of rows) {
+        if (r.origemCodigo || !r.pracaDestino) continue;
+        // eslint-disable-next-line no-await-in-loop
+        const auto = await tryAutoOrigem(r.parsed.origem, r.pracaDestino);
+        if (auto) updates.push([r.id, auto]);
+      }
+      if (updates.length > 0) {
+        setRows((prev) =>
+          prev.map((r) => {
+            const u = updates.find(([id]) => id === r.id);
+            return u ? { ...r, origemCodigo: u[1] } : r;
+          })
+        );
+      }
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [origens, transportadora]);
 
   const tryAutoPraca = async (row: ConferenciaRow): Promise<string> => {
     if (row.pracaDestino) return row.pracaDestino;
     if (!transportadora) return "";
-    // Prioriza cidade do DESTINATÁRIO (cliente final), com fallback no destino da prestação
     const destCity =
       row.parsed.destinatarioCidade ||
       row.parsed.destino.split("/")[0].trim();
     if (!destCity) return "";
-    // Normaliza removendo acentos para comparação
-    const norm = (s: string) =>
-      s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
     const target = norm(destCity);
 
-    // ilike não ignora acentos, então buscamos pela palavra mais longa
-    // (mais distintiva) usando %palavra% e depois filtramos sem acento.
-    const words = destCity.split(/\s+/).filter((w) => w.length >= 3);
-    const longest = words.sort((a, b) => b.length - a.length)[0] || destCity;
+    // Pega os primeiros 3 caracteres ASCII e busca prefix — ilike é insensível a
+    // case mas não a acentos. Usamos prefixo curto e filtramos no JS com norm().
+    const prefixChars = target.slice(0, 3);
     const { data } = await supabase
       .from("transportadora_cidade_praca")
       .select("cidade,praca,estado")
       .eq("transportadora_id", transportadora.id)
-      .ilike("cidade", `%${longest}%`)
-      .limit(100);
+      .ilike("cidade", `${prefixChars}%`)
+      .limit(200);
     if (data && data.length > 0) {
-      // Filtra também pela UF se disponível
       const uf = row.parsed.destinatarioUF;
       const candidates = uf
-        ? data.filter((r) => !r.estado || r.estado.toUpperCase() === uf.toUpperCase())
+        ? data.filter(
+            (r) => !r.estado || r.estado.toUpperCase() === uf.toUpperCase()
+          )
         : data;
       const list = candidates.length > 0 ? candidates : data;
       const exact = list.find((r) => norm(r.cidade) === target);
@@ -146,13 +185,14 @@ export function Conferencia() {
               parsed,
               m3: parsed.m3 ?? 0,
               valorMercadoria: parsed.valorMercadoria ?? 0,
-              origemCodigo: tryAutoOrigem(parsed.origem),
+              origemCodigo: "",
               pracaDestino: "",
               freteCalculado: null,
               diferenca: null,
               status: "pendente",
             };
             row.pracaDestino = await tryAutoPraca(row);
+            row.origemCodigo = await tryAutoOrigem(parsed.origem, row.pracaDestino);
             newRows.push(row);
           }
         } catch (err: any) {
