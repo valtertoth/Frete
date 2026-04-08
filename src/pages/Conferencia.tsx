@@ -60,27 +60,37 @@ export function Conferencia() {
 
   const transportadora = transportadoras?.find((t) => t.id === transportadoraId);
 
-  // Tenta auto-detectar origem e praça quando uma linha é adicionada / origens carregam
+  const tryAutoOrigem = (parsedOrigem: string): string => {
+    if (!origens) return "";
+    const uf = parsedOrigem.split("/")[1]?.trim().toUpperCase();
+    if (!uf) return "";
+    // Prioriza origens cujo CÓDIGO começa com a UF
+    const byCodigo = origens.find((o) => o.codigo.toUpperCase().startsWith(uf));
+    if (byCodigo) return byCodigo.codigo;
+    // Senão tenta pelo nome
+    const byNome = origens.find((o) =>
+      (o.nome || "").toUpperCase().includes(uf)
+    );
+    return byNome?.codigo ?? "";
+  };
+
+  // Quando origens carregar (depois dos rows), preenche o que faltou
   useEffect(() => {
     if (!origens || !transportadora) return;
-    setRows((prev) =>
-      prev.map((r) => {
-        if (r.origemCodigo && r.pracaDestino) return r;
-        const updates: Partial<ConferenciaRow> = {};
-        if (!r.origemCodigo) {
-          const uf = r.parsed.origem.split("/")[1]?.trim().toUpperCase();
-          if (uf) {
-            const cand = origens.find(
-              (o) =>
-                o.codigo.startsWith(uf) ||
-                (o.nome || "").toUpperCase().includes(uf)
-            );
-            if (cand) updates.origemCodigo = cand.codigo;
-          }
+    setRows((prev) => {
+      let changed = false;
+      const next = prev.map((r) => {
+        if (r.origemCodigo) return r;
+        const auto = tryAutoOrigem(r.parsed.origem);
+        if (auto) {
+          changed = true;
+          return { ...r, origemCodigo: auto };
         }
-        return { ...r, ...updates };
-      })
-    );
+        return r;
+      });
+      return changed ? next : prev;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [origens, transportadora]);
 
   const tryAutoPraca = async (row: ConferenciaRow): Promise<string> => {
@@ -136,7 +146,7 @@ export function Conferencia() {
               parsed,
               m3: parsed.m3 ?? 0,
               valorMercadoria: parsed.valorMercadoria ?? 0,
-              origemCodigo: "",
+              origemCodigo: tryAutoOrigem(parsed.origem),
               pracaDestino: "",
               freteCalculado: null,
               diferenca: null,
